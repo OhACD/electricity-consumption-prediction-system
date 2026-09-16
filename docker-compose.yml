@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: oslo-energy-postgres
+    environment:
+      POSTGRES_DB: oslo_energy
+      POSTGRES_USER: oslo_energy
+      POSTGRES_PASSWORD: oslo_energy_dev # Development password for Oslo Energy PostgreSQL database, will be moved to a secure location for production use
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:

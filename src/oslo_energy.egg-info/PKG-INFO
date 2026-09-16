@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: oslo-energy
+Version: 0.1.0
+Summary: Power and electricity data pipeline for Norway
+Requires-Python: >=3.10
+Requires-Dist: httpx
+Requires-Dist: psycopg[binary]

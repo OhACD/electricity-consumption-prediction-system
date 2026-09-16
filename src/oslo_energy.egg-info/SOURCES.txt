@@ -1,0 +1,11 @@
+pyproject.toml
+src/oslo_energy.egg-info/PKG-INFO
+src/oslo_energy.egg-info/SOURCES.txt
+src/oslo_energy.egg-info/dependency_links.txt
+src/oslo_energy.egg-info/requires.txt
+src/oslo_energy.egg-info/top_level.txt
+src/oslo_energy/database/__init__.py
+src/oslo_energy/database/connection.py
+src/oslo_energy/database/repository.py
+src/oslo_energy/ingestion/ssb_client.py
+src/oslo_energy/transformation/normalization.py

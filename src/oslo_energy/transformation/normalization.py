@@ -8,15 +8,23 @@ Design:
 """
 
 from dataclasses import dataclass
-
+from datetime import date
 
 @dataclass(frozen=True)
 class ElectricityObservation:
-    period: str
+    period: date
     price_area: str
     consumer_group: str
     consumption_mwh: int
 
+# Helper function to parse date strings in the format "YYYYMM" into datetime.date objects.
+def _parse_date(value: str) -> date:
+    year, month = value.split("M")
+    return date(
+        year=int(year),
+        month=int(month),
+        day=1
+    )
 
 def normalize(data: dict) -> list[ElectricityObservation]:
     dimensions = data["dimension"]
@@ -42,7 +50,7 @@ def normalize(data: dict) -> list[ElectricityObservation]:
 
     return [
         ElectricityObservation(
-            period=period,
+            period=_parse_date(period),
             price_area=price_area,
             consumer_group=consumer_group,
             consumption_mwh=value,
