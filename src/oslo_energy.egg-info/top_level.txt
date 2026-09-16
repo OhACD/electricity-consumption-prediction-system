@@ -1,5 +1,0 @@
-dashboard
-docs
-infrastructure
-oslo_energy
-tests

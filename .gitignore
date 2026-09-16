@@ -1,4 +1,3 @@
-cat > .gitignore <<'EOF'
 .venv/
 venv/
 env/
@@ -13,6 +12,7 @@ __pycache__/
 
 .DS_Store
 
+*.egg-info/
+
 .vscode/
 .idea/
-EOF

@@ -8,8 +8,8 @@ class ElectricityRepository:
         self.connection = connection
 
     def save_observations(
-        self,
-        observations: Iterable[ElectricityObservation],
+    self,
+    observations: Iterable[ElectricityObservation],
     ) -> None:
         query = """
             INSERT INTO electricity_observations (
@@ -27,19 +27,24 @@ class ElectricityRepository:
             DO NOTHING
         """
 
-        with self.connection.cursor() as cursor:
-            for observation in observations:
-                cursor.execute(
-                    query,
-                    (
-                        observation.period,
-                        observation.price_area,
-                        observation.consumer_group,
-                        observation.consumption_mwh,
-                    ),
-                )
+        try:
+            with self.connection.cursor() as cursor:
+                for observation in observations:
+                    cursor.execute(
+                        query,
+                        (
+                            observation.period,
+                            observation.price_area,
+                            observation.consumer_group,
+                            observation.consumption_mwh,
+                        ),
+                    )
 
-        self.connection.commit()
+            self.connection.commit()
+
+        except Exception:
+            self.connection.rollback()
+            raise
 
 if __name__ == "__main__":
     from datetime import date
