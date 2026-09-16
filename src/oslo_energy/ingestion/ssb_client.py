@@ -18,6 +18,8 @@ Note:
 - The SSB API exposes separate endpoints for data and metadata.
 """
 
+import json
+
 import httpx
 
 class SSBClientError(Exception):
@@ -75,7 +77,29 @@ class SSBClient:
             ) from exc
 
 if __name__ == "__main__":
+    query = {
+        "selection": [
+            {
+                "variableCode": "Forbrukargruppe",
+                "valueCodes": ["0"],
+            },
+            {
+                "variableCode": "Prisomraade",
+                "valueCodes": ["NO1"],
+            },
+            {
+                "variableCode": "ContentsCode",
+                "valueCodes": ["ForbrukTotal"],
+            },
+            {
+                "variableCode": "Tid",
+                "valueCodes": ["*"],
+            },
+        ]
+    }
     client = SSBClient()
     metadata = client.get_metadata("14092")
+    # data = client.get_data("14092", query)
 
-    print(metadata)
+    print(json.dumps(metadata, indent=2))
+    # print(json.dumps(data, indent=2))
