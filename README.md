@@ -1,10 +1,12 @@
 # Oslo Energy
 
-A small, production-oriented electricity data pipeline for collecting monthly consumption data for the NO1 electricity price area in Norway.
+An intentionally hands-on electricity data pipeline for AI research and learning. The project is built manually, from first principles, to make the data flow, persistence, and future machine-learning work easy to understand.
+
+It currently collects monthly electricity consumption data for the NO1 electricity price area in Norway. The project is still under active development, and its architecture and scope will grow as new concepts are explored.
 
 The project is named Oslo Energy because the original goal was to study electricity consumption around Oslo. The current SSB dataset is organized by electricity price area rather than municipality, so the implementation currently targets NO1, which covers south-eastern Norway.
 
-# Quickstart
+## Quickstart
 
 The easiest way to run Oslo Energy locally is to use Docker Compose for PostgreSQL and Python on the host machine.
 
@@ -45,7 +47,7 @@ python -m oslo_energy.pipeline.run_ingestion
 
 The pipeline fetches the available monthly observations from SSB and stores them in PostgreSQL.
 
-# Features
+## Features
 
 Oslo Energy currently provides:
 
@@ -58,7 +60,7 @@ Oslo Energy currently provides:
 7. Unit and PostgreSQL integration tests for the core data flow.
 8. A Docker Compose development database.
 
-# How it works
+## How it works
 
 The current data flow is:
 
@@ -135,7 +137,7 @@ The table requires all observation fields, rejects negative consumption, and enf
 period + price_area_code + consumer_group_code
 ```
 
-# Reliability Guarantees
+## Reliability Guarantees
 
 ## Idempotent ingestion
 
@@ -147,7 +149,7 @@ Observations are saved as one batch. A successful batch is committed. If an inse
 
 These guarantees are enforced at the persistence boundary and are not dependent only on application-level checks.
 
-# Testing
+## Testing
 
 The test suite is organized around architectural boundaries:
 
@@ -157,7 +159,7 @@ The test suite is organized around architectural boundaries:
 
 The database tests expect the local PostgreSQL service to be running and the migration to have been applied.
 
-# Database Inspection
+## Database Inspection
 
 Connect to the development database with:
 
@@ -184,7 +186,7 @@ FROM electricity_observations
 ORDER BY period;
 ```
 
-# Project Structure
+## Project Structure
 
 ```text
 ml-prediction-pipeline/
@@ -202,7 +204,7 @@ ml-prediction-pipeline/
 +- pyproject.toml      Python package and dependency configuration
 ```
 
-# Current Limitations
+## Current Limitations
 
 1. The source data is monthly rather than hourly or daily.
 2. Only the NO1 electricity price area is currently ingested.
@@ -217,7 +219,7 @@ ml-prediction-pipeline/
 
 The current dataset is intentionally small. Its seasonal pattern makes it useful for proving the pipeline, but it also means future machine-learning work will need simple baselines and careful validation to avoid overfitting.
 
-# Future Improvements
+## Future Improvements
 
 1. Add baseline forecasting models, including previous-month and seasonal-naive predictions.
 2. Build feature extraction for lags, rolling statistics, and calendar seasonality.
@@ -227,7 +229,7 @@ The current dataset is intentionally small. Its seasonal pattern makes it useful
 6. Add an API or dashboard for observations and forecasts.
 7. Expand the dataset and support additional price areas when needed.
 
-# Engineering Decisions
+## Engineering Decisions
 
 - External systems are kept at the edges of the application.
 - The SSB client knows how to communicate with SSB; ingestion knows what data to request.
@@ -237,7 +239,7 @@ The current dataset is intentionally small. Its seasonal pattern makes it useful
 - PostgreSQL is used instead of a data lake because the current dataset is small and benefits from relational constraints and simple local development.
 - Additional infrastructure is deferred until the local ingestion pipeline is reliable.
 
-# References
+## References
 
 1. [Statistics Norway PxWeb API](https://data.ssb.no/api/pxwebapi/v2)
 2. [SSB table 14092](https://www.ssb.no/en/statbank/table/14092)
