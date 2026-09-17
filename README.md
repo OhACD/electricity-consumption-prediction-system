@@ -6,6 +6,12 @@ It currently collects monthly electricity consumption data for the NO1 electrici
 
 The project is named Oslo Energy because the original goal was to study electricity consumption around Oslo. The current SSB dataset is organized by electricity price area rather than municipality, so the implementation currently targets NO1, which covers south-eastern Norway.
 
+## License
+
+The Oslo Energy source code and original documentation are licensed under the [MIT License](LICENSE).
+
+The project retrieves data from Statistics Norway (SSB). The MIT License does not apply to SSB's source data, API, or any third-party material. Refer to the [SSB PxWeb API](https://data.ssb.no/api/pxwebapi/v2) and [SSB table 14092](https://www.ssb.no/en/statbank/table/14092) for the applicable source terms.
+
 ## Quickstart
 
 The easiest way to run Oslo Energy locally is to use Docker Compose for PostgreSQL and Python on the host machine.
